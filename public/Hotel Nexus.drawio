@@ -1,0 +1,113 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" version="28.0.6">
+  <diagram name="Page-1" id="tUKvbE2bToYufg-QrGXZ">
+    <mxGraphModel dx="3062" dy="1322" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-1" value="HOTEL NEXUS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+          <mxGeometry x="240" y="170" width="410" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-2" value="Notification Services&lt;div&gt;(Email/SMS)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-40" y="100" width="100" height="350" as="geometry" />
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-3" value="Payment Gateway" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="440" width="270" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-4" value="Hotel Admin/Staff" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="880" y="165" width="120" height="185" as="geometry" />
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-5" value="Customer/Guest" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="248" y="10" width="355" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-6" value="" style="endArrow=none;html=1;rounded=0;exitX=1.01;exitY=0.32;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitPerimeter=0;" edge="1" parent="1" source="Gl1J08xyiFWXpV6nUNfr-2" target="Gl1J08xyiFWXpV6nUNfr-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="30" y="259.96" as="sourcePoint" />
+            <mxPoint x="302.8800000000001" y="264.99999999999994" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-7" value="Sends: Booking confirmations,&amp;nbsp;&lt;div&gt;reminders, promotional messages.&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Gl1J08xyiFWXpV6nUNfr-6">
+          <mxGeometry x="0.0741" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-8" value="" style="endArrow=none;html=1;rounded=0;entryX=0.011;entryY=0.611;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="Gl1J08xyiFWXpV6nUNfr-2" target="Gl1J08xyiFWXpV6nUNfr-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="80" y="320" as="sourcePoint" />
+            <mxPoint x="299" y="322" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-9" value="Receives: Notification requests&amp;nbsp;&lt;div&gt;from the system.&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Gl1J08xyiFWXpV6nUNfr-8">
+          <mxGeometry x="0.0741" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-10" value="" style="endArrow=none;html=1;rounded=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitX=0.196;exitY=0.033;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="Gl1J08xyiFWXpV6nUNfr-1" target="Gl1J08xyiFWXpV6nUNfr-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="350" y="220" as="sourcePoint" />
+            <mxPoint x="360" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-11" value="Sends: Room booking requests,&amp;nbsp;&lt;div&gt;account details, payment info,&amp;nbsp;&lt;div&gt;booking modifications,&amp;nbsp;&lt;/div&gt;&lt;div&gt;cancellations.&lt;/div&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Gl1J08xyiFWXpV6nUNfr-10">
+          <mxGeometry x="0.0741" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-13" value="" style="endArrow=none;html=1;rounded=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;exitX=0.818;exitY=-0.022;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="Gl1J08xyiFWXpV6nUNfr-1" target="Gl1J08xyiFWXpV6nUNfr-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="530" y="240" as="sourcePoint" />
+            <mxPoint x="530" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-15" value="Receives: Booking confirmation,&amp;nbsp;&lt;div&gt;invoices, promotional offers,&amp;nbsp;&lt;div&gt;account updates.&lt;/div&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Gl1J08xyiFWXpV6nUNfr-13">
+          <mxGeometry x="0.2882" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-21" value="" style="endArrow=none;html=1;rounded=0;entryX=0.196;entryY=1;entryDx=0;entryDy=0;exitX=0.126;exitY=-0.067;exitDx=0;exitDy=0;entryPerimeter=0;exitPerimeter=0;" edge="1" parent="1" source="Gl1J08xyiFWXpV6nUNfr-3" target="Gl1J08xyiFWXpV6nUNfr-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="363.88" y="497.03" as="sourcePoint" />
+            <mxPoint x="359.9999999999999" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-22" value="Sends: Payment confirmation&amp;nbsp;&lt;div&gt;or failure notices.&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Gl1J08xyiFWXpV6nUNfr-21">
+          <mxGeometry x="0.0741" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-23" value="" style="endArrow=none;html=1;rounded=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="Gl1J08xyiFWXpV6nUNfr-3" target="Gl1J08xyiFWXpV6nUNfr-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="524" y="500" as="sourcePoint" />
+            <mxPoint x="520" y="343" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-24" value="Receives: Payment requests&lt;div&gt;&amp;nbsp;from customers&amp;nbsp;&lt;/div&gt;&lt;div&gt;through the system.&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Gl1J08xyiFWXpV6nUNfr-23">
+          <mxGeometry x="0.0741" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-25" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.216;entryDx=0;entryDy=0;exitX=1.011;exitY=0.078;exitDx=0;exitDy=0;entryPerimeter=0;exitPerimeter=0;" edge="1" parent="1" source="Gl1J08xyiFWXpV6nUNfr-1" target="Gl1J08xyiFWXpV6nUNfr-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="684" y="397" as="sourcePoint" />
+            <mxPoint x="680" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-26" value="Sends: Room updates (availability, pricing),&lt;div&gt;&amp;nbsp;promotions,&lt;div&gt;&amp;nbsp;booking status changes,&amp;nbsp;&lt;/div&gt;&lt;div&gt;invoices.&lt;/div&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Gl1J08xyiFWXpV6nUNfr-25">
+          <mxGeometry x="0.0741" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-28" value="" style="endArrow=none;html=1;rounded=0;entryX=-0.017;entryY=0.641;entryDx=0;entryDy=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryPerimeter=0;" edge="1" parent="1" source="Gl1J08xyiFWXpV6nUNfr-1" target="Gl1J08xyiFWXpV6nUNfr-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="583.0799999999999" y="332.98999999999995" as="sourcePoint" />
+            <mxPoint x="890" y="320.00499999999994" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gl1J08xyiFWXpV6nUNfr-29" value="Receives: Booking requests, customer details,&amp;nbsp;&lt;div&gt;payment notifications,&amp;nbsp;&lt;/div&gt;&lt;div&gt;reports.&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Gl1J08xyiFWXpV6nUNfr-28">
+          <mxGeometry x="0.0741" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
