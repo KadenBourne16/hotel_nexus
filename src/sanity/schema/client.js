@@ -5,15 +5,15 @@ export const client = defineType({
     title: "Client",
     type: "document",
     fields: [
-        defineFields({
+        defineField({
             name: "first_name",
             type: "string",
         }),
-        defineFields({
+        defineField({
             name: "middle_name",
             type: "string"
         }),
-        defineFields({
+        defineField({
             name: "last_name",
             type: "string"
         }),

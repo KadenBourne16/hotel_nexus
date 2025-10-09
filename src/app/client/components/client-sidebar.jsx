@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import {
   Building2,
@@ -12,17 +12,20 @@ import {
   LogOut,
   Bed,
 } from "lucide-react";
+import { ValidateToken } from "@/server/actions/ValidateToken";
+import { useRouter } from "next/navigation";
+
 
 const menuItems = [
   {
     title: "Dashboard",
-    url: "#",
+    url: "/client",
     icon: Home,
     isActive: false,
   },
   {
     title: "Available Rooms",
-    url: "#",
+    url: "/client/available-rooms",
     icon: Bed,
     isActive: true,
   },
@@ -48,7 +51,48 @@ const menuItems = [
   },
 ];
 
+
+
+
 export function ClientSidebar({ sidebarOpen, setSidebarOpen }) {
+  const router = useRouter();
+
+  const validateClient_Token = async () => {
+  // Implement token validation logic here
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user'));
+  if(!user || user.accountType !== "client") {
+    window.location.href = "/";
+  }
+
+  if (!token) {
+    window.location.href = "/";
+
+  }
+
+  const token_verification_response = await ValidateToken(token);
+  if(!token_verification_response) return false;
+  // If valid, return true
+  return true; // Placeholder
+}
+
+  const handleSignOut = () => {
+  // Clear token from localStorage or cookies
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  // Redirect to login page
+  router.push("/")
+}
+
+  React.useEffect(() => {
+    (async () => {
+      const valid = await validateClient_Token();
+      if (!valid) {
+        router.push("/");
+      }
+    })();
+  }, []);
+
   return (
     <aside 
       className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} 
@@ -107,7 +151,10 @@ export function ClientSidebar({ sidebarOpen, setSidebarOpen }) {
 
       {/* Footer */}
       <div className="border-t border-rose-200 bg-rose-50 px-4 py-3">
-        <button className="flex items-center gap-3 text-sm text-gray-700 hover:text-rose-700 hover:bg-rose-100 px-3 py-2 w-full rounded-md">
+        <button
+          onClick={handleSignOut}
+          className="flex items-center gap-3 text-sm text-gray-700 hover:text-rose-700 hover:bg-rose-100 px-3 py-2 w-full rounded-md"
+        >
           <LogOut className="w-4 h-4" />
           <span>Sign Out</span>
         </button>

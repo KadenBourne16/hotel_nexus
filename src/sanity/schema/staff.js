@@ -6,6 +6,11 @@ export const staff = defineType({
   type: "document",
   icon: () =>  "👤",
   fields: [
+    defineField({ 
+      name: "staff_id",
+      title: "Staff ID",
+      type: "string",
+    }),
     defineField({
       name: "first_name",
       type: "string",
@@ -29,6 +34,13 @@ export const staff = defineType({
     defineField({
       name: "position",
       type: "string",
+      options: {  list: [
+        { title: 'Manager', value: 'manager' },
+        { title: 'Receptionist', value: 'receptionist' },
+        { title: 'Housekeeping', value: 'housekeeping' },
+        { title: 'Chef', value: 'chef' },
+        { title: 'Waitstaff', value: 'waitstaff' },
+      ] },
     }),
     defineField({
       name: "password",

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ClientSidebar } from "../client-dashboard/components/client-sidebar";
+import { ClientSidebar } from "./components/client-sidebar";
 
 export default function ClientDashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);

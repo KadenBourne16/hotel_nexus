@@ -1,10 +1,88 @@
 "use client"
 
-import { Building2, Phone, Lock, User, Users } from "lucide-react"
+import { Building2, Phone, Lock, User, Users, Mail } from "lucide-react"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function LoginPage() {
   const [accountType, setAccountType] = useState("client")
+  const [loginMethod, setLoginMethod] = useState("phone") // "phone" or "email"
+  const [loginValue, setLoginValue] = useState("")
+  const [password, setPassword] = useState("")
+  const [staffId, setStaffId] = useState("")
+  const [modal, setModal] = useState({ isOpen: false, title: "", message: "" })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState({})
+  const router = useRouter()
+
+
+  // Validate fields before submit
+  const validate = () => {
+    const newError = {}
+    if (accountType === "staff" && !staffId) {
+      newError.staffId = "Staff ID is required."
+    }
+    if (!loginValue) {
+      newError.login = loginMethod === "phone" ? "Phone number is required." : "Email is required."
+    } else if (loginMethod === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(loginValue)) {
+        newError.login = "Please enter a valid email address."
+      }
+    } else if (loginMethod === "phone") {
+      const phoneDigits = loginValue.replace(/\D/g, "")
+      if (phoneDigits.length !== 10) {
+        newError.login = "Phone number must be 10 digits."
+      }
+    }
+    if (!password) {
+      newError.password = "Password is required."
+    }
+    setError(newError)
+    return Object.keys(newError).length === 0
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!validate()) return
+
+    setLoading(true)
+    setError({})
+    let payload = {
+      password,
+      accountType,
+    }
+    if (accountType === "staff") {
+      payload.staffId = staffId
+    }
+    payload.login = loginValue
+
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const result = await response.json()
+      setLoading(false)
+      if (result.success) {
+        setModal({ isOpen: true, title: "Success", message: "Login successful!" })
+        if(accountType === "staff"){
+          localStorage.setItem('staff', JSON.stringify(result.user))
+          router.push("/staff") // Redirect staff to /staff
+        } else {
+          localStorage.setItem('user', JSON.stringify(result.user))
+          router.push("/client") // Redirect client to /client
+        }
+        localStorage.setItem('token', result.token)
+      } else {
+        setModal({ isOpen: true, title: "Error", message: result.message || "Login failed." })
+      }
+    } catch (err) {
+      setLoading(false)
+      setModal({ isOpen: true, title: "Error", message: "Network error. Please try again." })
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-500 to-rose-950 flex items-center justify-center p-4">
@@ -54,9 +132,30 @@ export default function LoginPage() {
             <p className="text-center text-gray-600">
               Sign in to access your {accountType === "staff" ? "hotel dashboard" : "account"}
             </p>
+            {/* Modal (placed exactly here) */}
+            {modal.isOpen && (
+              <div className={`flex flex-col justify-center items-center w-full py-2 my-2 ${modal.title === "Success" ? 'text-green-500 bg-green-200 border-2 border-green-500 rounded-sm' : 'text-red-500 bg-red-200 border-2 border-red-500 rounded-sm'}`}>
+                <div className="flex items-center gap-2">
+                  {modal.title === "Success" ? "✓" : "✗"}
+                  <h2 className="font-bold">{modal.title}</h2>
+                </div>
+                <p className="text-sm">{modal.message}</p>
+                {modal.title !== "Success" && (
+                  <button
+                    className="mt-2 px-4 py-1 bg-red-500 text-white rounded"
+                    onClick={() => setModal({ isOpen: false, title: "", message: "" })}
+                  >
+                    Ok
+                  </button>
+                )}
+                {modal.title === "Success" && (
+                  <span className="w-6 h-6 border-2 border-green-500 border-t-transparent border-b-transparent rounded-full animate-spin mt-2"></span>
+                )}
+              </div>
+            )}
           </div>
           <div className="space-y-6">
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               {/* Staff ID Field - Only for Hotel Staff */}
               {accountType === "staff" && (
                 <div className="space-y-2">
@@ -68,29 +167,47 @@ export default function LoginPage() {
                     <input
                       id="staffId"
                       type="text"
+                      value={staffId}
+                      onChange={e => setStaffId(e.target.value)}
                       placeholder="Enter your staff ID"
                       className="pl-10 h-12 w-full border border-gray-200 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-gray-300"
                       required
                     />
                   </div>
+                  {error.staffId && <p className="text-rose-600 text-xs mt-1">{error.staffId}</p>}
                 </div>
               )}
 
-              {/* Phone Number Field */}
+              {/* Phone/Email Field */}
               <div className="space-y-2">
-                <label htmlFor="phone" className="text-sm font-medium text-gray-700">
-                  Phone Number
+                <label htmlFor="login" className="text-sm font-medium text-gray-700">
+                  {loginMethod === "phone" ? "Phone Number" : "Email"}
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  {loginMethod === "phone" ? (
+                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  ) : (
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  )}
                   <input
-                    id="phone"
-                    type="tel"
-                    placeholder="020123456789"
-                    className="pl-10 h-12 w-full border border-gray-200 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-gray-300"
+                    id="login"
+                    type={loginMethod === "phone" ? "tel" : "email"}
+                    placeholder={loginMethod === "phone" ? "0201234567" : "your@email.com"}
+                    className="pl-10 pr-10 h-12 w-full border border-gray-200 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-gray-300"
                     required
+                    value={loginValue}
+                    onChange={e => setLoginValue(e.target.value)}
                   />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-600"
+                    onClick={() => setLoginMethod(loginMethod === "phone" ? "email" : "phone")}
+                    aria-label="Toggle login method"
+                  >
+                    {loginMethod === "phone" ? <Mail className="w-5 h-5" /> : <Phone className="w-5 h-5" />}
+                  </button>
                 </div>
+                {error.login && <p className="text-rose-600 text-xs mt-1">{error.login}</p>}
               </div>
 
               {/* Password Field */}
@@ -103,11 +220,14 @@ export default function LoginPage() {
                   <input
                     id="password"
                     type="password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
                     placeholder="Enter your password"
                     className="pl-10 h-12 w-full border border-gray-200 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-gray-300"
                     required
                   />
                 </div>
+                {error.password && <p className="text-rose-600 text-xs mt-1">{error.password}</p>}
               </div>
 
               {/* Remember Me and Forgot Password */}
@@ -130,9 +250,17 @@ export default function LoginPage() {
               {/* Sign In Button */}
               <button
                 type="submit"
-                className="w-full h-12 bg-red-600 hover:bg-red-900 text-white font-medium rounded-lg transition-colors"
+                className="w-full h-12 bg-red-600 hover:bg-red-900 text-white font-medium rounded-lg transition-colors flex items-center justify-center"
+                disabled={loading}
               >
-                Sign In as {accountType === "staff" ? "Hotel Staff" : "Client"}
+                {loading ? (
+                  <>
+                    <span className="w-5 h-5 border-2 border-white border-t-transparent border-b-transparent rounded-full animate-spin mr-2"></span>
+                    Signing In...
+                  </>
+                ) : (
+                  <>Sign In as {accountType === "staff" ? "Hotel Staff" : "Client"}</>
+                )}
               </button>
             </form>
 
