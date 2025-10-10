@@ -31,7 +31,7 @@ const menuItems = [
   },
   {
     title: "My Bookings",
-    url: "#",
+    url: "/client/booking",
     icon: Calendar,
   },
   {

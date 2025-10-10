@@ -92,26 +92,34 @@ export default function BookingModal({ isOpen, onClose, room, onBookingSubmit })
               <span className="text-2xl">🏨</span>
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-gray-900 truncate">
-                {room.type} #{room.room_number}
-              </h3>
-              <div className="flex items-center gap-4 mt-1">
-                <span className="flex items-center gap-1 text-sm text-gray-600">
-                  💰 GH₵{room.price}/night
-                </span>
-                <span className="flex items-center gap-1 text-sm text-gray-600">
-                  👥 {room.capacity} guests
-                </span>
-              </div>
-              <div className="flex gap-2 mt-2">
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                  room.status === "available"
-                    ? "bg-green-100 text-green-800"
-                    : "bg-yellow-100 text-yellow-800"
-                }`}>
-                  {room.status.charAt(0).toUpperCase() + room.status.slice(1)}
-                </span>
-              </div>
+              {room ? (
+                <>
+                  <h3 className="font-semibold text-gray-900 truncate">
+                    {room.type} #{room.room_number}
+                  </h3>
+                  <div className="flex items-center gap-4 mt-1">
+                    <span className="flex items-center gap-1 text-sm text-gray-600">
+                      💰 GH₵{room.price}/night
+                    </span>
+                    <span className="flex items-center gap-1 text-sm text-gray-600">
+                      👥 {room.capacity} guests
+                    </span>
+                  </div>
+                  <div className="flex gap-2 mt-2">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      room.status === "available"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-yellow-100 text-yellow-800"
+                    }`}>
+                      {room.status.charAt(0).toUpperCase() + room.status.slice(1)}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <div className="text-gray-500 text-sm">
+                  No room selected.
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -155,7 +163,7 @@ export default function BookingModal({ isOpen, onClose, room, onBookingSubmit })
           )}
 
           {/* Booking Summary */}
-          {checkIn && checkOut && (
+          {checkIn && checkOut && room && (
             <div className="bg-gray-50 rounded-lg p-4 space-y-2">
               <h4 className="font-medium text-gray-900">Booking Summary</h4>
               <div className="flex justify-between text-sm text-gray-600">

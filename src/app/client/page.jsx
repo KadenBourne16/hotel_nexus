@@ -123,30 +123,18 @@ export default function ClientDashboard() {
   }, [])
 
   const handleBookingSubmit = async (bookingData) => {
-    console.log("Received booking data in handleBookingSubmit:", bookingData)
-
     try {
       const user = JSON.parse(localStorage.getItem('user'))
-      if (!user || !user.id) {
-        console.error("Invalid user data:", user)
+      if (!user) {
         setError('Please log in to make a booking')
         return
       }
-
       // bookingData should contain checkIn, checkOut, and room info
       const { checkIn, checkOut, room } = bookingData
       if (!room || !room._id || !checkIn || !checkOut) {
-        console.error("Invalid booking data:", bookingData)
-        console.error("Room object:", room)
-        console.error("Room ID:", room?._id)
-        console.error("Check-in value:", checkIn, "Type:", typeof checkIn)
-        console.error("Check-out value:", checkOut, "Type:", typeof checkOut)
         setError('Missing booking details')
         return
       }
-
-      console.log("Extracted data:", { roomId: room._id, checkIn, checkOut, clientId: user.id })
-
       const response = await fetch('/api/client/booking/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -154,16 +142,10 @@ export default function ClientDashboard() {
           roomId: room._id,
           checkIn,
           checkOut,
-          clientId: user.id,
+          clientId: user._id,
         }),
       })
-
-      console.log("API Response status:", response.status)
-
       if (response.ok) {
-        const result = await response.json()
-        console.log("Booking successful:", result)
-
         setModal({
           isOpen: true,
           title: 'Booking Successful!',
@@ -174,11 +156,9 @@ export default function ClientDashboard() {
         window.location.reload() // quick fix to refresh room status
       } else {
         const err = await response.json()
-        console.error("Booking failed:", err)
         setError(err.error || 'Failed to create booking')
       }
     } catch (error) {
-      console.error('Booking submission error:', error)
       setError('Failed to create booking. Please try again.')
     }
   }

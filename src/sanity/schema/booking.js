@@ -48,5 +48,5 @@ export const booking = defineType({
             options: {dateFormat: "YYYY-MM-DD", timeFormat: "HH:mm"},
             initialValue: (new Date()).toISOString(),
         })
-    ]
+    ],
 });
