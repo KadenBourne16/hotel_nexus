@@ -36,17 +36,17 @@ const menuItems = [
   },
   {
     title: "Billing",
-    url: "#",
+    url: "/client/billing",
     icon: CreditCard,
   },
   {
     title: "Profile",
-    url: "#",
+    url: "/client/profile",
     icon: User,
   },
   {
     title: "Settings",
-    url: "#",
+    url: "/client/settings",
     icon: Settings,
   },
 ];
