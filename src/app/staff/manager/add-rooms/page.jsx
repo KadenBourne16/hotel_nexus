@@ -25,7 +25,7 @@ export default function AddRooms() {
   return (
     <div className="p-6">
       <div className="mb-6 flex items-center justify-end w-full">
-        <a href="/staff/add-rooms/create-rooms" className="bg-red-400 p-2 text-white rounded-md">Create Room</a>
+        <a href="/staff/manager/add-rooms/create-rooms" className="bg-red-400 p-2 text-white rounded-md">Create Room</a>
       </div>
       {loading ? (
         <div className="flex justify-center items-center py-12">
@@ -78,7 +78,7 @@ export default function AddRooms() {
                 <span className="ml-2 text-xs text-gray-700">{room.services?.join(", ") || "None"}</span>
               </div>
               <a
-                href={`/staff/add-rooms/edit-rooms/${room._id}`}
+                href={`/staff/manager/add-rooms/edit-rooms/${room._id}`}
                 className="mt-2 self-end bg-red-600 hover:bg-red-800 text-white px-4 py-2 rounded text-xs font-semibold transition"
               >
                 Edit

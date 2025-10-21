@@ -268,7 +268,7 @@ export default function LoginPage() {
             {accountType === "client" && (
               <div className="w-full max-w-md mx-auto flex justify-center items-center">
                 <p className="text-black text-sm">
-                  Don't have account?{" "}
+                  Don&apos;t have account?{" "}
                   <span>
                     <a href="/signup" className="text-rose-600 hover:text-rose-800 font-medium">
                       Sign Up
