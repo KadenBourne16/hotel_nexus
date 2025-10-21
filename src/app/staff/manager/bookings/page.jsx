@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { client } from "@/sanity/lib/client"
+import { apiVersion, dataset, projectId, token } from "@/sanity/env"
 import { Calendar, User, MapPin, Clock, CheckCircle, XCircle, AlertCircle } from "lucide-react"
 
 export default function BookingsPage() {
@@ -51,11 +52,33 @@ export default function BookingsPage() {
         created_at
       }`
 
+      console.log('Fetching bookings with config:', {
+        projectId,
+        dataset,
+        hasToken: !!token,
+        apiVersion
+      })
+
       const result = await client.fetch(query)
+      console.log('Bookings fetched successfully:', result.length)
       setBookings(result)
     } catch (err) {
       console.error("Error fetching bookings:", err)
-      setError("Failed to load bookings. Please try again.")
+
+      // Provide more specific error messages
+      let errorMessage = "Failed to load bookings. Please try again."
+
+      if (err.message?.includes('Unauthorized')) {
+        errorMessage = "Authentication failed. Please check your Sanity token configuration."
+      } else if (err.message?.includes('Not found')) {
+        errorMessage = "Dataset not found. Please verify your Sanity project configuration."
+      } else if (err.message?.includes('CORS')) {
+        errorMessage = "CORS error. Please check your Sanity client configuration."
+      } else if (err.message?.includes('Network')) {
+        errorMessage = "Network error. Please check your internet connection and Sanity service status."
+      }
+
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
