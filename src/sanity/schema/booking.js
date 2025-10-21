@@ -42,6 +42,18 @@ export const booking = defineType({
             ]},
         }),
         defineField({
+            name: "payment_status",
+            title: "Payment Status",
+            type: "string",
+            options: {
+                list: [
+                    {title: 'Paid', value: 'paid'},
+                    {title: 'Not Paid', value: 'not_paid'},
+                ]
+            },
+            initialValue: 'not_paid',
+        }),
+        defineField({
             name: "created_at",
             title: "Created At",
             type: "datetime",
