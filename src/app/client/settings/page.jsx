@@ -26,7 +26,7 @@ export default function Settings() {
         autoFillPayment: false,
         
         // Preferences
-        currency: "USD",
+        currency: "GHc",
         language: "English",
         temperature: "Celsius",
         dateFormat: "DD/MM/YYYY"

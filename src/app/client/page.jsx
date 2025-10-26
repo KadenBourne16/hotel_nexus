@@ -183,210 +183,213 @@ export default function ClientDashboard() {
           </div>
         </header>
 
-        <main className="space-y-6 p-6 bg-gradient-to-br from-rose-50 to-white min-h-screen">
-          <section className="bg-white p-6 rounded-lg border border-rose-200 shadow-sm">
-            <h2 className="text-2xl font-bold text-rose-900 mb-2">
-              Welcome back, {user?.first_name}
-              {user?.middle_name ? ` ${user.middle_name}` : ""}
-              {user?.last_name ? ` ${user.last_name}` : ""}
-            </h2>
-            <p className="text-gray-600">
-              Here's an overview of your booking history and the latest updates from HotelNexus.
-            </p>
-          </section>
+        <main className="space-y-6 p-6 min-h-screen relative bg-cover bg-center bg-no-repeat" style={{backgroundImage: "url('/HotelFront.jpg')"}}>
+          <div className="absolute inset-0 bg-black opacity-50"></div>
+          <div className="relative z-10 space-y-6">
+            <section className="bg-white p-6 rounded-lg border border-rose-200 shadow-sm">
+              <h2 className="text-2xl font-bold text-rose-900 mb-2">
+                Welcome back, {user?.first_name}
+                {user?.middle_name ? ` ${user.middle_name}` : ""}
+                {user?.last_name ? ` ${user.last_name}` : ""}
+              </h2>
+              <p className="text-gray-600">
+                Here's an overview of your booking history and the latest updates from HotelNexus.
+              </p>
+            </section>
 
-          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <StatsCard
-              title="Total Bookings"
-              value={stats.totalBookings}
-              subtitle="All time bookings"
-              icon={<Calendar className="w-4 h-4" />}
-              trend={{ value: "0 this month", isPositiveis: true }}
-            />
-            <StatsCard
-              title="Average Room Price"
-              value={`GHc${stats.averagePrice}`}
-              subtitle="Per night average"
-              icon={<DollarSign className="w-4 h-4" />}
-            />
-            <StatsCard
-              title="Favorite Room"
-              value={stats.favoriteRoom}
-              subtitle="Most booked room type"
-              icon={<Heart className="w-4 h-4" />}
-            />
-            <StatsCard
-              title="Longest Stay"
-              value={stats.longestStay}
-              subtitle="Your record stay"
-              icon={<Clock className="w-4 h-4" />}
-            />
-          </section>
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <StatsCard
+                title="Total Bookings"
+                value={stats.totalBookings}
+                subtitle="All time bookings"
+                icon={<Calendar className="w-4 h-4" />}
+                trend={{ value: "0 this month", isPositive: true }}
+              />
+              <StatsCard
+                title="Average Room Price"
+                value={`GHc${stats.averagePrice}`}
+                subtitle="Per night average"
+                icon={<DollarSign className="w-4 h-4" />}
+              />
+              <StatsCard
+                title="Favorite Room"
+                value={stats.favoriteRoom}
+                subtitle="Most booked room type"
+                icon={<Heart className="w-4 h-4" />}
+              />
+              <StatsCard
+                title="Longest Stay"
+                value={stats.longestStay}
+                subtitle="Your record stay"
+                icon={<Clock className="w-4 h-4" />}
+              />
+            </section>
 
-          {/* Available Rooms Section */}
-          <section>
-            <h3 className="text-xl font-semibold text-rose-900 mb-4 flex items-center gap-2">
-              <Bed className="w-5 h-5" /> Available Rooms
-            </h3>
-            {roomsLoading ? (
-              <div className="flex justify-center items-center py-8">
-                <Loader2 className="animate-spin w-8 h-8 text-rose-600" />
-                <span className="ml-3 text-rose-600 font-semibold">Loading rooms...</span>
-              </div>
-            ) : rooms.length === 0 ? (
-              <div className="text-center text-gray-500 py-8">No rooms found.</div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {rooms.map((room) => (
-                  <div key={room._id} className="bg-white border border-rose-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 flex flex-col group">
-                    <div className="mb-4 relative overflow-hidden rounded-xl">
-                      {room.image && room.image.length > 0 && room.image[0].asset ? (
-                        <img
-                          src={urlFor(room.image[0].asset)}
-                          alt={room.type}
-                          className="rounded-xl object-cover w-full h-48 group-hover:scale-105 transition-transform duration-300"
-                        />
-                      ) : (
-                        <div className="w-full h-48 bg-gradient-to-br from-rose-100 to-pink-100 rounded-xl flex items-center justify-center text-gray-400">
-                          <Bed className="w-16 h-16" />
+            {/* Available Rooms Section */}
+            <section>
+              <h3 className="text-xl font-semibold text-rose-900 mb-4 flex items-center gap-2">
+                <Bed className="w-5 h-5" /> Available Rooms
+              </h3>
+              {roomsLoading ? (
+                <div className="flex justify-center items-center py-8">
+                  <Loader2 className="animate-spin w-8 h-8 text-rose-600" />
+                  <span className="ml-3 text-rose-600 font-semibold">Loading rooms...</span>
+                </div>
+              ) : rooms.length === 0 ? (
+                <div className="text-center text-gray-500 py-8">No rooms found.</div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {rooms.map((room) => (
+                    <div key={room._id} className="bg-white border border-rose-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 flex flex-col group">
+                      <div className="mb-4 relative overflow-hidden rounded-xl">
+                        {room.image && room.image.length > 0 && room.image[0].asset ? (
+                          <img
+                            src={urlFor(room.image[0].asset)}
+                            alt={room.type}
+                            className="rounded-xl object-cover w-full h-48 group-hover:scale-105 transition-transform duration-300"
+                          />
+                        ) : (
+                          <div className="w-full h-48 bg-gradient-to-br from-rose-100 to-pink-100 rounded-xl flex items-center justify-center text-gray-400">
+                            <Bed className="w-16 h-16" />
+                          </div>
+                        )}
+                        <div className="absolute top-3 right-3">
+                          <span className={`px-3 py-1 rounded-full text-xs font-semibold shadow-md ${
+                            room.status === "available"
+                              ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
+                              : room.status === "occupied"
+                              ? "bg-amber-100 text-amber-800 border border-amber-200"
+                              : "bg-slate-100 text-slate-800 border border-slate-200"
+                          }`}>
+                            {room.status.charAt(0).toUpperCase() + room.status.slice(1)}
+                          </span>
                         </div>
-                      )}
-                      <div className="absolute top-3 right-3">
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold shadow-md ${
-                          room.status === "available"
-                            ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                            : room.status === "occupied"
-                            ? "bg-amber-100 text-amber-800 border border-amber-200"
-                            : "bg-slate-100 text-slate-800 border border-slate-200"
-                        }`}>
-                          {room.status.charAt(0).toUpperCase() + room.status.slice(1)}
-                        </span>
+                      </div>
+
+                      <div className="flex-1 flex flex-col">
+                        <h2 className="text-xl font-bold text-gray-900 mb-2 leading-tight">
+                          {room.type} <span className="text-rose-600">#{room.room_number}</span>
+                        </h2>
+
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          <span className="flex items-center gap-1 text-sm bg-rose-50 px-3 py-1.5 rounded-full border border-rose-200 text-rose-700 font-medium">
+                            <DollarSign className="w-4 h-4" /> {room.price} GHS
+                          </span>
+                          <span className="flex items-center gap-1 text-sm bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200 text-blue-700 font-medium">
+                            <Users className="w-4 h-4" /> {room.capacity}
+                          </span>
+                          <span className="flex items-center gap-1 text-sm bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200 text-amber-700 font-medium">
+                            <Star className="w-4 h-4" /> {room.rating || "N/A"}
+                          </span>
+                        </div>
+
+                        <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-2">
+                          {room.description}
+                        </p>
+
+                        {(room.amenities?.length > 0 || room.services?.length > 0) && (
+                          <div className="mb-4 space-y-2">
+                            {room.amenities?.length > 0 && (
+                              <div className="flex flex-wrap gap-1">
+                                <span className="text-xs font-semibold text-rose-700 mr-2">Amenities:</span>
+                                {room.amenities.slice(0, 2).map((amenity, index) => (
+                                  <span key={index} className="text-xs bg-rose-50 text-rose-600 px-2 py-0.5 rounded-full">
+                                    {amenity}
+                                  </span>
+                                ))}
+                                {room.amenities.length > 2 && (
+                                  <span className="text-xs text-gray-500">+{room.amenities.length - 2} more</span>
+                                )}
+                              </div>
+                            )}
+                            {room.services?.length > 0 && (
+                              <div className="flex flex-wrap gap-1">
+                                <span className="text-xs font-semibold text-blue-700 mr-2">Services:</span>
+                                {room.services.slice(0, 2).map((service, index) => (
+                                  <span key={index} className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">
+                                    {service}
+                                  </span>
+                                ))}
+                                {room.services.length > 2 && (
+                                  <span className="text-xs text-gray-500">+{room.services.length - 2} more</span>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        <div className="flex gap-2 mt-auto pt-4">
+                          <button
+                            className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all duration-200 ${
+                              room.status === 'available'
+                                ? "bg-rose-600 hover:bg-rose-700 text-white shadow-md hover:shadow-lg"
+                                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                            }`}
+                            onClick={() => {
+                              if (room.status === 'available') {
+                                setBookingModal({ isOpen: true, room })
+                              } else {
+                                setError('This room is currently not available')
+                              }
+                            }}
+                            disabled={room.status !== 'available'}
+                          >
+                            {room.status === 'available' ? 'Book Room' : 'Unavailable'}
+                          </button>
+                          <button
+                            className="flex-1 border-2 border-rose-200 text-rose-700 hover:bg-rose-50 hover:border-rose-300 py-3 px-4 rounded-xl font-semibold transition-all duration-200"
+                            onClick={() => setRoomDetailsModal({ isOpen: true, room })}
+                          >
+                            View Details
+                          </button>
+                        </div>
                       </div>
                     </div>
+                  ))}
+                </div>
+              )}
+            </section>
 
-                    <div className="flex-1 flex flex-col">
-                      <h2 className="text-xl font-bold text-gray-900 mb-2 leading-tight">
-                        {room.type} <span className="text-rose-600">#{room.room_number}</span>
-                      </h2>
-
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        <span className="flex items-center gap-1 text-sm bg-rose-50 px-3 py-1.5 rounded-full border border-rose-200 text-rose-700 font-medium">
-                          <DollarSign className="w-4 h-4" /> {room.price} GHS
-                        </span>
-                        <span className="flex items-center gap-1 text-sm bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200 text-blue-700 font-medium">
-                          <Users className="w-4 h-4" /> {room.capacity}
-                        </span>
-                        <span className="flex items-center gap-1 text-sm bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200 text-amber-700 font-medium">
-                          <Star className="w-4 h-4" /> {room.rating || "N/A"}
-                        </span>
-                      </div>
-
-                      <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-2">
-                        {room.description}
-                      </p>
-
-                      {(room.amenities?.length > 0 || room.services?.length > 0) && (
-                        <div className="mb-4 space-y-2">
-                          {room.amenities?.length > 0 && (
-                            <div className="flex flex-wrap gap-1">
-                              <span className="text-xs font-semibold text-rose-700 mr-2">Amenities:</span>
-                              {room.amenities.slice(0, 2).map((amenity, index) => (
-                                <span key={index} className="text-xs bg-rose-50 text-rose-600 px-2 py-0.5 rounded-full">
-                                  {amenity}
-                                </span>
-                              ))}
-                              {room.amenities.length > 2 && (
-                                <span className="text-xs text-gray-500">+{room.amenities.length - 2} more</span>
-                              )}
-                            </div>
-                          )}
-                          {room.services?.length > 0 && (
-                            <div className="flex flex-wrap gap-1">
-                              <span className="text-xs font-semibold text-blue-700 mr-2">Services:</span>
-                              {room.services.slice(0, 2).map((service, index) => (
-                                <span key={index} className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">
-                                  {service}
-                                </span>
-                              ))}
-                              {room.services.length > 2 && (
-                                <span className="text-xs text-gray-500">+{room.services.length - 2} more</span>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      <div className="flex gap-2 mt-auto pt-4">
-                        <button
-                          className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all duration-200 ${
-                            room.status === 'available'
-                              ? "bg-rose-600 hover:bg-rose-700 text-white shadow-md hover:shadow-lg"
-                              : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                          }`}
-                          onClick={() => {
-                            if (room.status === 'available') {
-                              setBookingModal({ isOpen: true, room })
-                            } else {
-                              setError('This room is currently not available')
-                            }
-                          }}
-                          disabled={room.status !== 'available'}
-                        >
-                          {room.status === 'available' ? 'Book Room' : 'Unavailable'}
-                        </button>
-                        <button
-                          className="flex-1 border-2 border-rose-200 text-rose-700 hover:bg-rose-50 hover:border-rose-300 py-3 px-4 rounded-xl font-semibold transition-all duration-200"
-                          onClick={() => setRoomDetailsModal({ isOpen: true, room })}
-                        >
-                          View Details
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            {/* Hotel Updates Section */}
+            <section className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Bell className="w-5 h-5 text-rose-600" />
+                  <h3 className="text-xl font-semibold text-rose-900">Hotel Updates</h3>
+                </div>
+                <button className="border border-rose-200 text-rose-700 hover:bg-rose-50 px-4 py-2 rounded">
+                  View All Updates
+                </button>
               </div>
-            )}
-          </section>
+              {updatesLoading ? (
+                <div className="flex justify-center items-center py-8">
+                  <Loader2 className="animate-spin w-8 h-8 text-rose-600" />
+                  <span className="ml-3 text-rose-600 font-semibold">Loading updates...</span>
+                </div>
+              ) : updates.length === 0 ? (
+                <div className="text-center text-gray-500 py-8">No updates found.</div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {updates.map((update) => (
+                    <UpdateCard key={update._id} {...update} />
+                  ))}
+                </div>
+              )}
+            </section>
 
-          {/* Hotel Updates Section */}
-          <section className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Bell className="w-5 h-5 text-rose-600" />
-                <h3 className="text-xl font-semibold text-rose-900">Hotel Updates</h3>
+            <section className="bg-white p-6 rounded-lg border border-rose-200 shadow-sm">
+              <h3 className="text-lg font-semibold text-rose-900 mb-4">Quick Actions</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button className="bg-rose-600 hover:bg-rose-700 text-white h-12 rounded">Book a New Room</button>
+                <button className="border border-rose-200 text-rose-700 hover:bg-rose-50 h-12 rounded bg-transparent">
+                  View My Bookings
+                </button>
+                <button className="border border-rose-200 text-rose-700 hover:bg-rose-50 h-12 rounded bg-transparent">
+                  Contact Support
+                </button>
               </div>
-              <button className="border border-rose-200 text-rose-700 hover:bg-rose-50 px-4 py-2 rounded">
-                View All Updates
-              </button>
-            </div>
-            {updatesLoading ? (
-              <div className="flex justify-center items-center py-8">
-                <Loader2 className="animate-spin w-8 h-8 text-rose-600" />
-                <span className="ml-3 text-rose-600 font-semibold">Loading updates...</span>
-              </div>
-            ) : updates.length === 0 ? (
-              <div className="text-center text-gray-500 py-8">No updates found.</div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {updates.map((update) => (
-                  <UpdateCard key={update._id} {...update} />
-                ))}
-              </div>
-            )}
-          </section>
-
-          <section className="bg-white p-6 rounded-lg border border-rose-200 shadow-sm">
-            <h3 className="text-lg font-semibold text-rose-900 mb-4">Quick Actions</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <button className="bg-rose-600 hover:bg-rose-700 text-white h-12 rounded">Book a New Room</button>
-              <button className="border border-rose-200 text-rose-700 hover:bg-rose-50 h-12 rounded bg-transparent">
-                View My Bookings
-              </button>
-              <button className="border border-rose-200 text-rose-700 hover:bg-rose-50 h-12 rounded bg-transparent">
-                Contact Support
-              </button>
-            </div>
-          </section>
+            </section>
+          </div>
         </main>
       </div>
 
